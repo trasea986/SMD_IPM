@@ -26,5 +26,5 @@ plot(cdl_ID.WA.19)
 points(points_final, pch = 1, col = "blue", cex = 1) ####gives the map with points overlayed (map pasted below)
 
 
-
+#added progress, reduced size
 sampled_area <- sample_lsm(cdl_ID.WA.19, y = points_final, size = .001, shape = "circle", what = "lsm_l_shdi", progress = TRUE)
