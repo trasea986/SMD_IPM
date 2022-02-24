@@ -12,6 +12,13 @@ library(tidyverse)
 library(maptools)
 library(landscapemetrics)  ## now using this R package to extract buffers around the points
 
+packages_loaded <- c("raster","sf","dplyr","rgdal","sp", "CropScapeR", "gdalUtils", "tidyverse", "maptools", "landscapemetrics")
+
+for (i in packages_loaded) {
+  x <- packageVersion(paste(i))
+  print(paste(i,x, sep = "-"))
+}
+
 cdl_ID.WA.19 = raster("./data/CDL_2019_clip_20220114204134_1215990682.tif") ## raster file (attached)
 plot(cdl_ID.WA.19)
 
@@ -34,6 +41,9 @@ cdl_ID.WA.19 <- projectRaster(cdl_ID.WA.19, crs = projection, method = "ngb")
 #plotting to check reprojection
 plot(cdl_ID.WA.19)
 points(points_final, pch = 1, col = "blue", cex = 1)
+
+#save reprojected raster
+writeRaster(cdl_ID.WA.19, filename="./outputs/cdl_ID.WA.19_repro.grd", overwrite=TRUE, progress = TRUE)
 
 #added progress, reduced size
 sampled_area <- sample_lsm(cdl_ID.WA.19, y = points_final, size = 500, shape = "circle", what = "lsm_l_shdi", progress = TRUE)
